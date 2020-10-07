@@ -129,7 +129,7 @@ class Maze:
         ## TODO: Two lines
         ## If we are animating, set FPS to 20
         if animate == True:
-            fps = 20
+            fps = 1000
 
         ## Our special list that we use as a stack
         stack = list()
@@ -156,10 +156,16 @@ class Maze:
         ## TODO: We stop when we have reached every tile in the grid
         ## How do we know that we have reached every tile in the grid?
         ## It has something to do with the stack.
-        while visited.count(True) != len(visited) :
+
+
+#———————————————————————————————————————————————————————————#
+        
+        while len(stack) >= 1:
+            print(len(stack))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
+#———————————————————————————————————————————————————————————#
                     
             clock.tick(fps)
 
@@ -206,8 +212,6 @@ class Maze:
                 ## Again just the same move equation from Snake Project
                 x = x + rand_direction[0]
                 y = y + rand_direction[1]
-
-              ##————————————————————OVER HERE——————————————————##
                 
                 ## TODO: One line, now that we have just moved, mark our location as visited
                 ## There is an example of this somewhere earlier in make_maze()
@@ -248,10 +252,13 @@ if __name__ == "__main__":
 
     ## TODO: One Line
     ## Instantiate a Maze object
+
+    '''width, height, tile size, border width'''
     maze = Maze()
 
     ## TODO: One Line
     ## Create the maze
+    '''where to start making the maze'''
     maze.make_maze(0,0)
 
     ## OPTIONAL: Save your maze as an image
