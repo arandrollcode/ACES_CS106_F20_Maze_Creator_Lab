@@ -41,7 +41,7 @@ class Maze:
         ## TODO: Using pwidth and pheight, create a pygame screen
         ## http://www.petercollingridge.co.uk/tutorials/pygame-physics-simulation/creating-pygame-window/
         ## Just fill in the blank, don't add any other lines.
-        self.screen = pygame.display.set_mode(_______)
+        self.screen = pygame.display.set_mode((pwidth,pheight))
 
         ## TODO: Change the background color if you want
         self.screen.fill(CYAN)
@@ -58,8 +58,8 @@ class Maze:
         y = b
 
         ## TODO: Using self.width and self.height, fill in the blanks
-        for i in range(0, _______):
-            for j in range(0, _______):
+        for i in range(0, self.width):
+            for j in range(0, self.height):
                 ## Draw 4 lines to make a square with (x, y) as the top-right corner.
                 pygame.draw.line(self.screen, BLACK, [x, y], [x + s, y])
                 pygame.draw.line(self.screen, BLACK, [x + s, y], [x + s, y + s])
@@ -113,13 +113,13 @@ class Maze:
         self.animate = animate
 
         ## TODO: One line, make the grid
-        "write something here"
+        self.build_grid()
 
         ## If we are animating, make the program wait 1 second before continuing
         if animate == True:
             ## TODO: One line, make the program sleep for 1 second
             ## https://www.tutorialspoint.com/python/time_sleep.htm
-            "write something here"
+            time.sleep(1)
         
         
         clock = pygame.time.Clock()
@@ -128,8 +128,8 @@ class Maze:
 
         ## TODO: Two lines
         ## If we are animating, set FPS to 20
-        "write something here"
-            "write something here"
+        if animate == True:
+            fps = 20
 
         ## Our special list that we use as a stack
         stack = list()
@@ -143,7 +143,7 @@ class Maze:
         y = start_y
         
         ## TODO: One line, Add the coordinates to the stack as a tuple
-        "write something here"
+        stack.append((x,y))
 
         ## Set the (x, y) coordinate of visited to True
         visited[x][y] = True
@@ -153,10 +153,10 @@ class Maze:
         ## Add the coordinate to the stack and mark it as visited
         ## If we reach a dead end, pop the last coordinates off the stack and go back
 
-        ## TODO: We stop when we have reached ever tile in the grid
+        ## TODO: We stop when we have reached every tile in the grid
         ## How do we know that we have reached every tile in the grid?
         ## It has something to do with the stack.
-        while _______:
+        while visited.count(True) != len(visited) :
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -172,69 +172,69 @@ class Maze:
                 ## TODO: Fill in the blanks
                 ## (newx, newy) should be the coordinates after moving in "direction" from (x, y)
                 ## This is the same move equation from Snake Project
-                newx = _______
-                newy = _______
+                newx = x + direction[0]
+                newy = y + direction[1]
 
                 ## TODO: Check if newx is outisde the grid
                 ## Is a negative coordinate in the grid?
                 ## If my grid is 20 tiles wide, is (20, 0) still in the grid?
-                if newx < _______ or newx >= _______:
+                if newx < 0 or newx > self.height-1:
                     continue
                 
                 ## TODO: Check if newy is outisde the grid
-                if newy < _______ or newy >= _______:
+                if newy < 0 or newy > self.width-1:
                     continue
 
                 ## TODO: If we have not visited (newx, newy) add the direction to the branch
                 ## Remember the 'visited' variable
-                if _______:
+                if visited[newx][newy] == False:
                     branches.append(direction)
-
 
             ## TODO: Check that we are not at a dead end
             ## How many branches does a dead end have?
             ## True == not a dead end, False == a dead end
-            if _______:
+            if len(branches) > 0:
                 ## TODO: One line, pick a random direction from branch
                 ## https://www.w3schools.com/python/module_random.asp
                 ## HINT: It is one of the first 10 methods in the list
-                rand_direction = random._______(branches)
+                rand_direction = random.choice(branches)
 
                 ## TODO: One line, push down the wall in the direction
-                "write something here"
+                self.push(x,y,rand_direction)
 
                 ## Move the coordinates in rand_direction
                 ## Again just the same move equation from Snake Project
-                x = _______
-                y = _______
+                x = x + rand_direction[0]
+                y = y + rand_direction[1]
 
+              ##————————————————————OVER HERE——————————————————##
                 
                 ## TODO: One line, now that we have just moved, mark our location as visited
                 ## There is an example of this somewhere earlier in make_maze()
-                "write something here"
+                visited[x][y] = True
 
                 ## TODO: One line, add our current coordinate to the stack
-                "write something here"
+                stack.append((x,y))
 
             ## We are at a dead end
             else:
 
                 ## TODO: Pop the previous coordinate from the stack
                 ## Set x and y to the old coordinate values
-                "write something here"
-                x = _______
-                y = _______
+                stack.pop()
+                x = stack[-1][0]
+                y = stack[-1][1]
 
                 ## When backtracking, show the tile we are popping by flashing it red
                 ## We can do this by drawing a red square, and then drawing a white square quickly after
                 
                 ## TODO: One line, draw a red tile at (x, y)
-                "write something here"
+                self.draw_tile(x, y, RED)
                 
                 clock.tick(fps)
 
                 ## TODO: One line, draw a white tile at (x, y)
-                "write something here"
+                self.draw_tile(x, y, WHITE)
 
         pygame.display.update()
 
@@ -248,15 +248,15 @@ if __name__ == "__main__":
 
     ## TODO: One Line
     ## Instantiate a Maze object
-    "write something here"
+    maze = Maze()
 
     ## TODO: One Line
     ## Create the maze
-    "write something here"
+    maze.make_maze(0,0)
 
     ## OPTIONAL: Save your maze as an image
     ## There is a function written that does this for you.
-    
+    maze.save_maze()
 
     ## Some stuff so that the window exits properly
     run = True
@@ -266,4 +266,3 @@ if __name__ == "__main__":
                 pygame.quit()
                 run = False
                 break
-            
