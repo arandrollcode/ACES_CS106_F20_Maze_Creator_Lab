@@ -129,7 +129,7 @@ class Maze:
         ## TODO: Two lines
         ## If we are animating, set FPS to 20
         if animate == True:
-            fps = 1000
+            fps = 100
 
         ## Our special list that we use as a stack
         stack = list()
@@ -179,11 +179,11 @@ class Maze:
                 ## TODO: Check if newx is outisde the grid
                 ## Is a negative coordinate in the grid?
                 ## If my grid is 20 tiles wide, is (20, 0) still in the grid?
-                if newx < 0 or newx > self.height-1:
+                if newx < 0 or newx > self.width-1:
                     continue
                 
                 ## TODO: Check if newy is outisde the grid
-                if newy < 0 or newy > self.width-1:
+                if newy < 0 or newy > self.height-1:
                     continue
 
                 ## TODO: If we have not visited (newx, newy) add the direction to the branch
@@ -235,6 +235,11 @@ class Maze:
                 ## TODO: One line, draw a white tile at (x, y)
                 self.draw_tile(x, y, WHITE)
 
+            def draw_ends():
+                self.draw_tile(0,0,PURPLE)
+                self.draw_tile(self.width-1,self.height-1,GREEN)
+
+        draw_ends()
         pygame.display.update()
 
     ## Save an image of the maze
@@ -248,15 +253,16 @@ if __name__ == "__main__":
     ## TODO: One Line
     ## Instantiate a Maze object
     '''width, height, tile size, border width'''
-    maze = Maze(50,50,10,5)
+    maze = Maze(40, 42, 15, 2)
 
     ## TODO: One Line
     ## Create the maze
-    '''where to start making the maze'''
+    '''which coord to start making the maze'''
     maze.make_maze(0,0)
 
     ## OPTIONAL: Save your maze as an image
     ## There is a function written that does this for you.
+
     maze.save_maze()
 
     ## Some stuff so that the window exits properly
