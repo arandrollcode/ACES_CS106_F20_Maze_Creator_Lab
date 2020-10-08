@@ -156,16 +156,11 @@ class Maze:
         ## TODO: We stop when we have reached every tile in the grid
         ## How do we know that we have reached every tile in the grid?
         ## It has something to do with the stack.
-
-
-#———————————————————————————————————————————————————————————#
         
         while len(stack) >= 1:
-            print(len(stack))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-#———————————————————————————————————————————————————————————#
                     
             clock.tick(fps)
 
@@ -225,9 +220,9 @@ class Maze:
 
                 ## TODO: Pop the previous coordinate from the stack
                 ## Set x and y to the old coordinate values
-                stack.pop()
-                x = stack[-1][0]
-                y = stack[-1][1]
+                yeet = stack.pop()
+                x = yeet[0]
+                y = yeet[1]
 
                 ## When backtracking, show the tile we are popping by flashing it red
                 ## We can do this by drawing a red square, and then drawing a white square quickly after
@@ -252,9 +247,8 @@ if __name__ == "__main__":
 
     ## TODO: One Line
     ## Instantiate a Maze object
-
     '''width, height, tile size, border width'''
-    maze = Maze()
+    maze = Maze(50,50,10,5)
 
     ## TODO: One Line
     ## Create the maze
