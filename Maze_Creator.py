@@ -119,7 +119,7 @@ class Maze:
         if animate == True:
             ## TODO: One line, make the program sleep for 1 second
             ## https://www.tutorialspoint.com/python/time_sleep.htm
-            time.sleep(1)
+            time.sleep(1.5)
         
         
         clock = pygame.time.Clock()
@@ -129,7 +129,7 @@ class Maze:
         ## TODO: Two lines
         ## If we are animating, set FPS to 20
         if animate == True:
-            fps = 100
+            fps = 1000
 
         ## Our special list that we use as a stack
         stack = list()
