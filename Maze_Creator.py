@@ -250,20 +250,16 @@ class Maze:
 if __name__ == "__main__":
     pygame.init()
 
-    ## TODO: One Line
     ## Instantiate a Maze object
     '''width, height, tile size, border width'''
     maze = Maze(40, 42, 15, 2)
 
-    ## TODO: One Line
     ## Create the maze
     '''which coord to start making the maze'''
     maze.make_maze(0,0)
 
-    ## OPTIONAL: Save your maze as an image
-    ## There is a function written that does this for you.
-
-    maze.save_maze()
+    '''Save your maze as an image'''
+    #maze.save_maze()
 
     ## Some stuff so that the window exits properly
     run = True
